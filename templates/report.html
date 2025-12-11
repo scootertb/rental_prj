@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Report</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <h1>Generate Report</h1>
+    <form method="POST" action="/report">
+        <label for="unit">Unit:</label>
+        <select name="unit" id="unit">
+            <option value="24">24th Ave</option>
+            <option value="72">72nd St</option>
+            <option value="11">Unit 11</option>
+            <option value="13">Unit 13</option>
+        </select>
+        <br>
+        <br>
+        <label for="tax_year">Tax Year:</label>
+        <input type="number" name="tax_year" value="2025">
+        <button type="submit">Submit</button>
+
+    </form>
+    <div class="center-container">
+        <a href="{{ url_for('home') }}">Return to submission</a>
+    </div>
+    <h2>Data Report</h2>
+
+    {% if error %}
+        <p>{{ error }}</p>
+    {% elif inc %}
+        <div class="center-container">
+            <div style="align-self: center">Unit: {{ unit | safe }}</div>
+            <br>
+            <div style="align-self: center">Total Income: ${{ inc | safe }}</div>
+            <br>
+            <div style="align-self: center">Total Expenses: ${{ exp | safe }}</div>
+            <br>
+            <div stlye="align-self: center">Tenant Balance: ${{ ten_bal | safe }}</div>
+        </div>
+        <div class="flex-container">
+            <div class="table-center">
+                <div style="align-self: center">{{ data | safe }}</div>
+            </div>
+        </div>
+        <div class="center-container">
+            <div style="align-self: center">"Other" Breakdown</div>
+        </div>
+        <div class="flex-container">
+            <div class="table-center">
+                <div style="align-self: center">{{ other_data | safe }}</div>
+            </div>
+        </div>
+    {% else %}
+        <div class="center-container">
+            <p>Select a unit to generate report</p>
+        </div>
+    {% endif %}
+
+</body>
+</html>

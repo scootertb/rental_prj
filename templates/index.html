@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rental</title>
+    <link rel="stylesheet" href="static/style.css">
+    <script>
+        window.onload = function() {
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        alert(message);  // Show the flash message in a browser alert
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        }
+    </script>
+</head>
+<body>
+    <h1>Enter Data</h1>
+    <br>
+    <div class="center-container">
+        <a href="{{ url_for('report') }}">
+            <button type="button">Generate Report</button>
+        </a>
+        <a href="{{ url_for('summary') }}">
+            <button type="button">View/Update Table</button>
+        </a>
+    </div>
+    <br>
+    <!-- Flash messages area -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert">
+                {% for message in messages %}
+                    <div class="center-container">
+                        <p>{{ message }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="/submit">
+        <label for="date_sub">Date of Submission:</label>
+        <input type="date" id="date_sub" name="date_sub" required>
+        <script>
+            // Get today's date
+            const today = new Date().toISOString().split('T')[0]; // Get date in YYYY-MM-DD format
+
+            // Set the value of the date input field
+            document.getElementById('date_sub').value = today;
+        </script>
+        <br>
+
+        <label for="unit"><mark>Unit:</mark></label>
+        <select name="unit" id="unit">
+            <option value="24">24th Ave</option>
+            <option value="72">72nd St</option>
+            <option value="11">Unit 11</option>
+            <option value="13">Unit 13</option>
+        </select>
+        <script>
+            // When the page loads, set the default value from localStorage if it exists
+            window.onload = function() {
+                const savedUnit = localStorage.getItem('selectedUnit');
+                if (savedUnit) {
+                document.getElementById('unit').value = savedUnit;
+                }
+            };
+
+            // When the user changes the selection, save the new value in localStorage
+            document.getElementById('unit').addEventListener('change', function() {
+                const selectedUnit = this.value;
+                localStorage.setItem('selectedUnit', selectedUnit);
+            });
+            </script>
+        <br><br>
+
+        <label for="date_exp">Date of Expense:</label>
+        <input type="date" name="date_exp" required>
+        <br>
+
+        <label for="item">Item:</label>
+        <select name="item" id="item">
+            <option value="Housing Payment">Housing Payment</option>
+            <option value="Tenant Payment">Tenant Payment</option>
+            <option value="Water Bill">Water Bill</option>
+            <option value="Water Payment">Water Payment</option>
+            <option value="Mortgage Payment">Mortgage Payment</option>
+            <option value="Property Tax">Property Tax</option>
+            <option value="Association Fee">Association Fee</option>
+            <option value="Rent">Rent</option>
+            <option value="Other">Other</option>
+        </select>
+        <br><br>
+
+        <label for="amt_due">Amount Due</label>
+        <input type="number" name="amt_due" value="0" step="any">
+        <br>
+
+        <label for="amt_rec">Amount Received</label>
+        <input type="number" name="amt_rec" value="0" step="any">
+        <br>
+
+        <label for="comment">Comments</label>
+        <input type="text" name="comment">
+
+        <button type="submit">Submit</button>
+    </form>
+    <br><br>
+
+    <div class="center-container">
+        <a href="{{ url_for('export_xlsx') }}">
+            <button type="button">Export Data as Excel</button>
+        </a>
+    </div>
+</body>
+</html>

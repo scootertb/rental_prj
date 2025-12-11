@@ -1,0 +1,81 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+h1 {
+    text-align: center;
+}
+h2 {
+    text-align: center;
+}
+
+form {
+    width: 300px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+input, button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+button {
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #0056b3;
+}
+.center-container {
+    text-align: center;
+}
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-content: center;
+}
+
+/* Style for the table */
+.table {
+    width: 100%;
+    border-collapse: collapse; /* Prevents double borders */
+    margin: 20px 0; /* Adds space above and below the table */
+    background-color: #f9f9f9; /* Lighter background for the table */
+}
+
+.table th, .table td {
+    padding: 12px 15px; /* Adds padding inside the table cells */
+    border: 1px solid #ddd; /* Light gray border */
+    text-align: center; /* Centers the text in cells */
+}
+
+.table th {
+    background-color: #3498db; /* Adds a background color to the header row */
+    color: white; /* Changes text color to white in the header */
+    font-weight: bold; /* Makes header text bold */
+}
+
+.table tr:nth-child(even) {
+    background-color: #f2f2f2; /* Adds alternating row colors for better readability */
+}
+
+.table tr:hover {
+    background-color: #ddd; /* Changes row color when hovered */
+}
+
+/* Optional: Adjust the table layout */
+.table-container {
+    overflow-x: auto; /* Makes the table horizontally scrollable if it’s too wide */
+    margin: 0 20px; /* Adds left and right margin for better alignment */
+}
+

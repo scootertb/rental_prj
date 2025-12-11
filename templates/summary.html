@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Table</title>
+    <link rel="stylesheet" href="static/style.css">
+    <script>
+        window.onload = function() {
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        alert(message);  // Show the flash message in a browser alert
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        }
+    </script>
+</head>
+<body>
+    <br><br>
+    <div class="center-container">
+        <a href="{{ url_for('home') }}">Return to submission</a>
+    </div>
+
+    <div class="table-center">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Unit</th>
+                    <th>Date of Submission</th>
+                    <th>Date of Expense/Payment</th>
+                    <th>Expense/Payment</th>
+                    <th>Amount Due</th>
+                    <th>Amount Received</th>
+                    <th>Total Balance</th>
+                    <th>Comments</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data.iterrows() %}
+                    <tr>
+                        <td>{{ row[1]['ID'] }}</td>
+                        <td>{{ row[1]['Unit'] }}</td>
+                        <td>{{ row[1]['Date of Submission'] }}</td>
+                        <td>{{ row[1]['Date of Expense/Payment'] }}</td>
+                        <td>{{ row[1]['Expense/Payment'] }}</td>
+                        <td>{{ row[1]['Amount Due'] }}</td>
+                        <td>{{ row[1]['Amount Received'] }}</td>
+                        <td>{{ row[1]['Total Balance'] }}</td>
+                        <td>{{ row[1]['Comments'] }}</td>
+                        <td><a href="{{ url_for('delete_row', row_id=row[1]['ID']) }}">Delete</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
